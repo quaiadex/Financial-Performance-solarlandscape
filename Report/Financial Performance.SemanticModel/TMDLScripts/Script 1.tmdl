@@ -1,0 +1,7 @@
+createOrReplace
+
+	ref table #model_measures
+
+		measure Medida = "1"
+			lineageTag: c848a064-1da9-4b83-9c4c-904860131f69
+

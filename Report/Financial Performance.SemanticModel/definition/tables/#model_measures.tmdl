@@ -1,0 +1,167 @@
+table #model_measures
+	lineageTag: db53c0c6-4d8a-4890-b052-59e381ac6706
+
+	measure #TODAY = DATEVALUE(MAX(last_refresh[last_refresh]))
+		formatString: General Date
+		lineageTag: dae93f78-3ba6-42ec-8a1b-dcd5c7914049
+
+	measure '1001 Actual' = SUM(fact_financials[actual_amount_USD])
+		formatString: #,0
+		lineageTag: 1f03441e-6658-461c-97d3-1390da0dd07c
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '1002 Budget' = SUM(fact_financials[budget_amount_USD])
+		formatString: #,0
+		lineageTag: fc5d6792-d9a6-4a31-99f4-e743efc8c6be
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure #NOW = MAX(last_refresh[last_refresh])
+		formatString: General Date
+		lineageTag: dcd13326-6b54-429d-a92a-00d33f3506da
+
+	measure '3003 Actual & Budget Variance % SG&A' =
+			
+			DIVIDE(
+			    [2004 Budget SG&A] - [2003 Actual SG&A],
+			    [2004 Budget SG&A]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 67f62237-ae15-487c-9e84-e4395b5d1d34
+
+	measure '3001 bridge Actual & Budget SG&A' =
+			
+			VAR _Metric = SELECTEDVALUE(bridge_actual_budget[metric])
+			RETURN
+			SUMX(
+			    bridge_actual_budget,
+			    SWITCH(TRUE(),
+			        _Metric = "Actual", [2003 Actual SG&A],
+			        _Metric = "Budget", [2004 Budget SG&A]
+			    )
+			)*-1
+		lineageTag: 846d15b0-54e6-459e-8e94-6fba08b5cac8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2003 Actual SG&A' =
+			
+			CALCULATE(
+			    [1001 Actual],
+			    KEEPFILTERS( dim_accounts[sgna_flag] )
+			)
+		formatString: #,0
+		lineageTag: 0852c012-cba9-4b73-939d-ecc5f60ce8a6
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '2004 Budget SG&A' =
+			
+			CALCULATE(
+			    [1002 Budget],
+			    KEEPFILTERS( dim_accounts[sgna_flag] )
+			)
+		formatString: #,0
+		lineageTag: 8cc24c61-4d1d-4d07-8a49-03b988f8abff
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure '3002 Actual & Budget Variance SG&A' = [2004 Budget SG&A] - [2003 Actual SG&A]
+		lineageTag: aa3bdeda-f060-4769-bfc0-736cb56cf12b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2005 Actual Revenue' =
+			
+			CALCULATE(
+			    [1001 Actual],
+			    KEEPFILTERS( dim_accounts[account_type] = "Revenue" )
+			)
+		lineageTag: a7d6db13-0079-4509-a9a0-b71b97f238f5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2006 Budget Revenue' =
+			
+			CALCULATE(
+			    [1002 Budget],
+			    KEEPFILTERS( dim_accounts[account_type] = "Revenue" )
+			)
+		lineageTag: 97f589e6-dbaf-4de9-8179-fe7ed6d92a1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '2007 Actual & Budget Variance %' =
+			
+			DIVIDE(
+			    [1001 Actual] - [1002 Budget],
+			    [1002 Budget]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 16856205-31d4-4b81-b63c-dcfcaf71c07b
+
+	measure '3004 CF Actual & Budget Variance %' =
+			
+			VAR _Result =
+			    IF(
+			        SELECTEDVALUE(dim_accounts[account_type]) IN {"COGS", "Opex"},
+			        [2007 Actual & Budget Variance %] * -1,
+			        [2007 Actual & Budget Variance %]
+			    )
+			RETURN
+			    SWITCH(TRUE(),
+			        _Result >= 0, [#KPI COLOR GREEN],
+			        _Result < 0, [#KPI COLOR RED]
+			    )
+		lineageTag: 35f9b929-0ee2-4687-bd3d-9d7a7d8b8c1c
+
+	measure '#KPI COLOR GREEN' = "#00865C"
+		lineageTag: 81a439cd-2dea-4518-8aca-258af950b131
+
+	measure '#KPI COLOR RED' = "#730020"
+		lineageTag: 00240a0b-d1c4-462e-9185-5ee652e8258b
+
+	measure #BLANK = BLANK()
+		formatString: 0
+		lineageTag: c2b06f40-7530-47dc-b4d1-4d4c98de7d58
+
+	measure '2008 Actual & Budget Variance' = [1001 Actual] - [1002 Budget]
+		lineageTag: 96af2d45-5403-4e40-aa7b-58b42b1d0dbf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '3005 CF Actual & Budget Variance % SG&A' =
+			
+			VAR _Result =
+			    IF(
+			        SELECTEDVALUE(dim_accounts[account_type]) IN {"COGS", "Opex"},
+			        [3003 Actual & Budget Variance % SG&A] * -1,
+			        [3003 Actual & Budget Variance % SG&A]
+			    )
+			RETURN
+			    SWITCH(TRUE(),
+			        _Result >= 0, [#KPI COLOR GREEN],
+			        _Result < 0, [#KPI COLOR RED]
+			    )
+		lineageTag: 9a34a967-9593-4e7b-98bf-95308a081a81
+
+	measure '2009 Actual YTD' = TOTALYTD([1001 Actual], dim_calendar[Date])
+		lineageTag: d3844565-5693-45ab-a41c-3e995f18b471
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition #model_measures = m
+		mode: import
+		queryGroup: OTHER
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Coluna 1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

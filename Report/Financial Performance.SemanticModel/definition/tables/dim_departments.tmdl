@@ -1,0 +1,41 @@
+table dim_departments
+	lineageTag: 3f9b04e7-0f60-4c90-a223-bd762b1ac675
+
+	column department_id
+		dataType: string
+		lineageTag: 80029b86-fab5-41be-8a8e-dde1a5fe284a
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_name
+		dataType: string
+		lineageTag: c4765f29-78dc-4120-9f76-221eec68236f
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_group
+		dataType: string
+		lineageTag: 2d07e349-f86f-441c-aefd-1f55b6d4d0d7
+		summarizeBy: none
+		sourceColumn: department_group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_departments = m
+		mode: import
+		queryGroup: DIMENSIONS
+		source =
+				let
+				    Source = database,
+				    departments_null_null = Value.NativeQuery(database, QUERY_dim_departments)
+				in
+				    departments_null_null
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

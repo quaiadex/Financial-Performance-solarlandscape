@@ -1,0 +1,75 @@
+table fact_financials
+	lineageTag: ddb3611e-782e-4ec2-a517-2d4929c7c85d
+
+	column company_id
+		dataType: int64
+		lineageTag: ac105c23-c5e5-4756-be2b-67214fe025bf
+		summarizeBy: none
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column department_id
+		dataType: string
+		lineageTag: 9a367f86-45fc-4c6b-97dc-eec173327f59
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: int64
+		lineageTag: ba498da4-a9b9-411f-9d16-65291fb2a62b
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column month_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 224cc47e-6b36-4cf8-9bbf-04b994401074
+		summarizeBy: none
+		sourceColumn: month_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column actual_amount_USD
+		dataType: double
+		lineageTag: 2dda6f11-c2da-4f2b-9bfa-a8904e66ea4e
+		summarizeBy: sum
+		sourceColumn: actual_amount_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column budget_amount_USD
+		dataType: double
+		lineageTag: a1f854ec-1ace-48b8-bbbf-fd5bcdaa857e
+		summarizeBy: sum
+		sourceColumn: budget_amount_USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_financials = m
+		mode: import
+		queryGroup: FACTS
+		source =
+				let
+				    Source = Value.NativeQuery(database, QUERY_fact_financials)
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,29 @@
+relationship AutoDetected_3987e223-d20f-49bf-9f16-aac83f41bf79
+	fromColumn: fact_financials.account_id
+	toColumn: dim_accounts.account_id
+
+relationship AutoDetected_2d8fd884-1b7e-4d96-83f9-a494ff3df440
+	fromColumn: fact_financials.department_id
+	toColumn: dim_departments.department_id
+
+relationship f37f416c-468d-4e1d-b23b-5f65959de49d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: last_refresh.last_refresh
+	toColumn: LocalDateTable_8497056a-91af-4a4b-bd93-bed834b29f93.Date
+
+relationship AutoDetected_574504df-8eb4-4c2f-812a-e9ff401b3869
+	fromColumn: fact_financials.company_id
+	toColumn: dim_companies.company_id
+
+relationship cad57896-c40b-4a94-7617-a8055d5585c6
+	fromColumn: bridge_actual_budget.fact_financials_department_id
+	toColumn: dim_departments.department_id
+
+relationship b7ba0694-2f29-a79e-11a9-5e9598028496
+	fromColumn: fact_financials.month_date
+	toColumn: dim_calendar.Date
+
+relationship 6c70d9a8-525d-535d-27c4-662d7ea200c2
+	fromColumn: bridge_actual_budget.fact_financials_month_date
+	toColumn: dim_calendar.Date
+

@@ -1,0 +1,48 @@
+table par_actual_month_ytd
+	lineageTag: 098ce20e-a689-4026-acf5-2b0417995b18
+
+	column par_actual_month_ytd
+		lineageTag: a7a8fecc-7d1f-4058-9d8a-c520c1f3f393
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'par_actual_month_ytd Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'par_actual_month_ytd Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'par_actual_month_ytd Campos'
+		isHidden
+		lineageTag: e5757e05-02b1-4e72-8171-732b83ea82c2
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'par_actual_month_ytd Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'par_actual_month_ytd Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: d9d131a1-f82e-4af8-b9af-352129413429
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition par_actual_month_ytd = calculated
+		mode: import
+		source =
+				{
+				    ("month", NAMEOF('#model_measures'[1001 Actual]), 0),
+				    ("YTD", NAMEOF('#model_measures'[2009 Actual YTD]), 1)
+				}
+
+	annotation PBI_Id = e4adc88cba2941fb8813bd7c2fd00bc9
+

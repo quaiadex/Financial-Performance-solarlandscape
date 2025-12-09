@@ -1,0 +1,170 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "161f7fd625efcbdd5076",
+  "position": {
+    "x": 424,
+    "y": 112,
+    "z": 5000,
+    "height": 248,
+    "width": 408,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "waterfallChart",
+    "query": {
+      "queryState": {
+        "Breakdown": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_departments"
+                    }
+                  },
+                  "Property": "department_name"
+                }
+              },
+              "queryRef": "dim_departments.department_name",
+              "nativeQueryRef": "Department",
+              "displayName": "Department"
+            }
+          ]
+        },
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "bridge_actual_budget"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "bridge_department_actual_budget.metric",
+              "nativeQueryRef": "metric",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "#model_measures"
+                    }
+                  },
+                  "Property": "3001 bridge Actual & Budget SG&A"
+                }
+              },
+              "queryRef": "#model_measures.3002 bridge Actual & Budget SG&A",
+              "nativeQueryRef": "Variance",
+              "displayName": "Variance"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "bridge_actual_budget"
+                  }
+                },
+                "Property": "metric"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Variance by Department'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6ee9c47fd411fffeb5f9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_departments"
+              }
+            },
+            "Property": "department_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "6ec835ffc19e4f7db32a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "bridge_actual_budget"
+              }
+            },
+            "Property": "metric"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e91ed594d7a2a7400460",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "3001 bridge Actual & Budget SG&A"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

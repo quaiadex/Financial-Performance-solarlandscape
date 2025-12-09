@@ -1,0 +1,45 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup ROOT
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup FACTS
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup DIMENSIONS
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup OTHER
+
+	annotation PBI_QueryGroupOrder = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
+
+annotation PBI_QueryOrder = ["QUERY_dim_accounts","dim_accounts","QUERY_dim_departments","SQLite_PATH","database","dim_departments","QUERY_fact_financials","fact_financials","#model_measures","last_refresh","QUERY_dim_companies","dim_companies"]
+
+ref table dim_accounts
+ref table dim_departments
+ref table fact_financials
+ref table DateTableTemplate_4295c86c-9d0f-4ef1-a80e-043e87471bbf
+ref table #model_measures
+ref table last_refresh
+ref table LocalDateTable_8497056a-91af-4a4b-bd93-bed834b29f93
+ref table dim_companies
+ref table dim_calendar
+ref table bridge_actual_budget
+ref table par_month_quarter_semester
+ref table par_actual_month_ytd
+
+ref cultureInfo pt-BR
+

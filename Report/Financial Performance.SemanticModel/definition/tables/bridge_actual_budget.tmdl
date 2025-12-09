@@ -1,0 +1,44 @@
+table bridge_actual_budget
+	lineageTag: 0014d7fc-9a99-436d-9569-6acaaaaa803f
+
+	column metric
+		lineageTag: cc942c03-657c-456c-a33e-82072e889bf5
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fact_financials_department_id
+		lineageTag: 99fb14c9-e6ff-4be8-9566-1ef2014aa3ff
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fact_financials[department_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fact_financials_month_date
+		formatString: General Date
+		lineageTag: d409801d-0d57-40a9-8188-15777da08c58
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: fact_financials[month_date]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition bridge_actual_budget = calculated
+		mode: import
+		source =
+				
+				CROSSJOIN(
+				    DISTINCT(
+				        SELECTCOLUMNS(
+				            fact_financials,
+				            fact_financials[department_id],
+				            fact_financials[month_date]
+				        )
+				    ),
+				    ({"Actual", "Budget"})
+				)
+
+	annotation PBI_Id = f10c1c1979df494abbc0e88eb02d96c0
+

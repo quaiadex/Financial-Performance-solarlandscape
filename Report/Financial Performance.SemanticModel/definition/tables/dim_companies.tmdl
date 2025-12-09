@@ -1,0 +1,33 @@
+table dim_companies
+	lineageTag: c9a12659-7208-4fcd-a864-1ac58dd66657
+
+	column company_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2bbbe7eb-6342-4508-af6d-e674023b7958
+		summarizeBy: none
+		sourceColumn: company_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: c8c7d6cf-8227-4604-a9cf-66d4512736b3
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_companies = m
+		mode: import
+		queryGroup: DIMENSIONS
+		source =
+				let
+				    Source = Value.NativeQuery(database, QUERY_dim_companies)
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,50 @@
+table par_month_quarter_semester
+	lineageTag: 3a5c81fc-e452-4104-8dcf-76db604ee7d6
+
+	column 'Par_Month & Quarter & Semester'
+		lineageTag: 869fed59-8112-4295-9c35-8e5ee3037cb4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Par_Month & Quarter & Semester Pedido'
+
+		relatedColumnDetails
+			groupByColumn: 'Par_Month & Quarter & Semester Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Par_Month & Quarter & Semester Campos'
+		isHidden
+		lineageTag: 3be2bf5c-73a8-44c0-862c-de2c3a95c752
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Par_Month & Quarter & Semester Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Par_Month & Quarter & Semester Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 3497c992-6bd1-41af-bebf-5187e89a9945
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition par_month_quarter_semester = calculated
+		mode: import
+		source =
+				{
+				    ("Month", NAMEOF('dim_calendar'[YearMonth YYYY/MMM]), 0),
+				    ("Quarter", NAMEOF('dim_calendar'[Quarter]), 1),
+				    ("Semester", NAMEOF('dim_calendar'[Semester]), 2),
+				    ("Year", NAMEOF('dim_calendar'[Year]), 3)
+				}
+
+	annotation PBI_Id = 5380aaa2039f43c281cbcfaa5555cb46
+

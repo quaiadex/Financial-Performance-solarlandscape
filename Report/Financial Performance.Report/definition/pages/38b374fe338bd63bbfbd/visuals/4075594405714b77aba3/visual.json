@@ -1,0 +1,199 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "4075594405714b77aba3",
+  "position": {
+    "x": 8,
+    "y": 112,
+    "z": 6000,
+    "height": 248,
+    "width": 408,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "waterfallChart",
+    "query": {
+      "queryState": {
+        "Breakdown": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_calendar"
+                    }
+                  },
+                  "Property": "YearMonth YYYY/MMM"
+                }
+              },
+              "queryRef": "dim_calendar.YearMonth YYYY/MMM",
+              "nativeQueryRef": "Month",
+              "displayName": "Month"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "par_month_quarter_semester"
+                    }
+                  },
+                  "Property": "Par_Month & Quarter & Semester"
+                }
+              },
+              "index": 0,
+              "length": 1
+            }
+          ]
+        },
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "bridge_actual_budget"
+                    }
+                  },
+                  "Property": "metric"
+                }
+              },
+              "queryRef": "bridge_department_actual_budget.metric",
+              "nativeQueryRef": "metric",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "#model_measures"
+                    }
+                  },
+                  "Property": "3001 bridge Actual & Budget SG&A"
+                }
+              },
+              "queryRef": "#model_measures.3002 bridge Actual & Budget SG&A",
+              "nativeQueryRef": "Variance",
+              "displayName": "Variance"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "bridge_actual_budget"
+                  }
+                },
+                "Property": "metric"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "breakdown": [
+        {
+          "properties": {
+            "maxBreakdowns": {
+              "expr": {
+                "Literal": {
+                  "Value": "6L"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Variance by Period'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fd1e89820ed53938ce2b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "bridge_actual_budget"
+              }
+            },
+            "Property": "metric"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "21fb58d94b3e51191cfc",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "3001 bridge Actual & Budget SG&A"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ba823a55e492c1daab11",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_calendar"
+              }
+            },
+            "Property": "YearMonth YYYY/MMM"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

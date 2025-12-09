@@ -1,0 +1,112 @@
+table dim_calendar
+	lineageTag: afed032a-103c-4976-99ad-57bb0e8d2676
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Short Date
+		lineageTag: b26b3ffd-9671-42b3-9640-233cfeeb20c1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		lineageTag: 7dd627c4-03c5-44ce-a750-df66dcb0d56b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Num'
+		formatString: 0
+		lineageTag: ea8a447a-46db-40ea-a5bb-200ad461b042
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Num]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name MMM'
+		lineageTag: c28d24e9-826c-4c5a-ac46-4dab2b4c82d7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name MMM]
+		sortByColumn: 'Month Num'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semester
+		lineageTag: 60a230b1-c5a1-4cc7-81b0-d1e0fb1cd8ab
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Semester]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: cac5d38b-a79a-448e-8c45-1efc20bb4439
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YearMonth YYYY/MMM'
+		lineageTag: b7f067db-8231-4d6b-a246-0e1cf1a1aad2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth YYYY/MMM]
+		sortByColumn: 'YearMonth YYYYMM'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YearMonth YYYYMM'
+		lineageTag: 7b78b890-2134-415a-abeb-a24d1df6008a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth YYYYMM]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YearMonth Current Month YYYY/MMM'
+		lineageTag: 91fa97fc-fb9d-48e8-8da4-8285f8eaa94f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth Current Month YYYY/MMM]
+		sortByColumn: 'YearMonth YYYYMM'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Current'
+		lineageTag: 5d4bc78f-590d-4cd6-82a4-3082f921b16d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year Current]
+		sortByColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_calendar = calculated
+		mode: import
+		source =
+				
+				VAR _today = [#TODAY]
+				RETURN
+				ADDCOLUMNS(
+				    CALENDARAUTO(),
+				    "Year", FORMAT([Date], "YYYY"),
+				    "Year Current", IF(FORMAT([#TODAY], "YYYY") = FORMAT([Date], "YYYY"), "Current Year",  FORMAT([Date], "YYYY") ),
+				    "Semester", "H" & IF( MONTH([Date]) <= 6, 1, 2 ),
+				    "Quarter", "Q" & QUARTER([Date]),
+				    "Month Num", MONTH([Date]),
+				    "Month Name MMM", FORMAT( [Date], "MMM"),
+				    "YearMonth YYYY/MMM", FORMAT( [Date], "MMM/YY"),
+				    "YearMonth Current Month YYYY/MMM",  IF(FORMAT([#TODAY], "YYYYMM") = FORMAT([Date], "YYYYMM"), "Current Month",  FORMAT( [Date], "MMM/YY")),
+				    "YearMonth YYYYMM", FORMAT( [Date], "YYYYMM")
+				)
+
+	annotation PBI_Id = 3c61898681b84aeeabceb665ee42fb52
+

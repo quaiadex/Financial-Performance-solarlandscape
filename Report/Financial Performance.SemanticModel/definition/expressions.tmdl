@@ -1,0 +1,106 @@
+expression SQLite_PATH = "C:\Users\Admin\OneDrive\Área de Trabalho\solarlandscape test\db\solarlandscape.db" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 32ae36bf-fc0e-42ed-b687-8ce59a7ec079
+	queryGroup: ROOT
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression database =
+		let
+		    Source = Odbc.DataSource("database="& SQLite_PATH &";dsn=SQLite3 Datasource", [HierarchicalNavigation=false])
+		in
+		    Source
+	lineageTag: 55a0a8f0-72a8-409f-842d-c16532a33a64
+	queryGroup: ROOT
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression QUERY_dim_accounts = ```
+		let
+		    Source = "
+		SELECT
+		    account_id,
+		    account_name,
+		    account_type,
+		    CASE 
+		        WHEN account_type = 'Revenue' THEN 1
+		        WHEN account_type = 'COGS'    THEN 2
+		        WHEN account_type = 'Opex'    THEN 3
+		    ELSE NULL
+		    END AS type_order,
+		    sgna_flag,
+		    COALESCE(sgna_category, 'N/A') AS sgna_category
+		FROM
+		    chart_of_accounts
+		"
+		in
+		    Source
+		```
+	lineageTag: ce720158-7e35-4ec6-92bf-c635ffaad515
+	queryGroup: DIMENSIONS
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression QUERY_dim_departments =
+		let
+		    Source = "
+		SELECT
+		    department_id,
+		    department_name,
+		    department_group
+		FROM
+		    departments
+		"
+		in
+		    Source
+	lineageTag: 6558ab36-99ec-4419-9ce6-d535ae01f85f
+	queryGroup: DIMENSIONS
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression QUERY_fact_financials =
+		"
+		SELECT
+		    company_id,
+		    department_id,
+		    account_id,
+		    year_month AS month_date,
+		    actual_amount AS actual_amount_USD,
+		    budget_amount AS budget_amount_USD
+		FROM
+		    financials_monthly
+		WHERE 1=1
+		    AND currency = 'USD'
+		"
+	lineageTag: b3fe90f4-b67c-484a-9c9b-66f5c2a0d35f
+	queryGroup: FACTS
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression QUERY_dim_companies =
+		let
+		    Source = "
+		SELECT DISTINCT
+		    company_id,
+		    company_name
+		FROM
+		    financials_monthly
+		"
+		in
+		    Source
+	lineageTag: 1dbd1d6e-c64b-499c-a925-6875220a8914
+	queryGroup: DIMENSIONS
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

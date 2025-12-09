@@ -1,0 +1,36 @@
+table last_refresh
+	isHidden
+	lineageTag: bec6e752-9f53-4734-8a4a-fc3d414c8e69
+
+	column last_refresh
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 449306ec-3712-4c2a-8b82-6b363b8f5512
+		summarizeBy: none
+		sourceColumn: last_refresh
+
+		variation Variation
+			isDefault
+			relationship: f37f416c-468d-4e1d-b23b-5f65959de49d
+			defaultHierarchy: LocalDateTable_8497056a-91af-4a4b-bd93-bed834b29f93.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition last_refresh = m
+		mode: import
+		queryGroup: ROOT
+		source =
+				let
+				    Source = DateTimeZone.UtcNow()
+				in
+				    Source
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTimeZone
+
