@@ -4,7 +4,7 @@
   "position": {
     "x": 688,
     "y": 120,
-    "z": 8000,
+    "z": 12500,
     "height": 256,
     "width": 584,
     "tabOrder": 7000
@@ -454,5 +454,107 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a1c8a76eb63e00c858f4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_accounts"
+              }
+            },
+            "Property": "account_type"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "34444454821c304d5d2a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_accounts"
+              }
+            },
+            "Property": "account_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5465123d97a02d73c5d6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_accounts"
+              }
+            },
+            "Property": "sgna_category"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bb8662c9aec71ac5402f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "1001 Actual"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "5a3fbe1a47624f276ec4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "1002 Budget"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1e7d7b46fc21d37dcccb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "2008 Actual & Budget Variance"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "407f42a6a698bdd32191",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "2007 Actual & Budget Variance %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

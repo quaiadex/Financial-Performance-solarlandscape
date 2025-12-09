@@ -4,7 +4,7 @@
   "position": {
     "x": 8,
     "y": 384,
-    "z": 11000,
+    "z": 13000,
     "height": 240,
     "width": 1264,
     "tabOrder": 10000
@@ -321,5 +321,93 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "06cbbe2b6e3d71e86f61",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_calendar"
+              }
+            },
+            "Property": "YearMonth YYYY/MMM"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "871ce91499fe4ac60c18",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_departments"
+              }
+            },
+            "Property": "department_group"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "03949d596f11f5138e76",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_departments"
+              }
+            },
+            "Property": "department_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "25de41f4f6bc2a239a96",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "1001 Actual"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a55249ff8b5900c5fea5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "1002 Budget"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "495e620fd5f494674777",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "2007 Actual & Budget Variance %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

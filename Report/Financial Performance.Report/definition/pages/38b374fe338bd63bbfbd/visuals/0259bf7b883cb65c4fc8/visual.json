@@ -4,8 +4,8 @@
   "position": {
     "x": 840,
     "y": 112,
-    "z": 4000,
-    "height": 216,
+    "z": 13000,
+    "height": 248.00000000000003,
     "width": 432,
     "tabOrder": 4000
   },
@@ -270,5 +270,93 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "030687cadd78a56e40af",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_departments"
+              }
+            },
+            "Property": "department_group"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "4076abc86f7cccb59763",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_departments"
+              }
+            },
+            "Property": "department_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3d0c9d5f4c2fdce43251",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "2003 Actual SG&A"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9d3e279ef105cb8931d5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "2004 Budget SG&A"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b98961aed5dbae7fafc0",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "3002 Actual & Budget Variance SG&A"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b5dd10f86e424ae50b15",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "#model_measures"
+              }
+            },
+            "Property": "3003 Actual & Budget Variance % SG&A"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
