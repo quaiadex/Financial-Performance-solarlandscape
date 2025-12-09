@@ -131,7 +131,7 @@ table #model_measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure '3005 CF Actual & Budget Variance % SG&A' =
+	measure '4001 CF Actual & Budget Variance % SG&A' =
 			
 			VAR _Result =
 			    IF(
