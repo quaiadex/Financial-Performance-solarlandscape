@@ -1,0 +1,9 @@
+account_id,account_name,account_type,sgna_flag,sgna_category
+4000,Product Revenue,Revenue,N,
+4100,Services Revenue,Revenue,N,
+5000,Cost of Goods Sold,COGS,N,
+5100,Sales Salaries,Opex,Y,Compensation
+5200,Marketing Spend,Opex,Y,Marketing
+5300,Office Rent,Opex,Y,Rent
+5400,Professional Services,Opex,Y,Professional Services
+5500,Corporate Overheads,Opex,Y,Other SG&A

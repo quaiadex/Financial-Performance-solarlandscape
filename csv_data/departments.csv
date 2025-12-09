@@ -1,0 +1,6 @@
+department_id,department_name,department_group,headcount_planned
+D100,Sales,Go-To-Market,20
+D200,Marketing,Go-To-Market,10
+D300,Operations,Operations,25
+D400,Finance,G&A,8
+D500,HR,G&A,6
