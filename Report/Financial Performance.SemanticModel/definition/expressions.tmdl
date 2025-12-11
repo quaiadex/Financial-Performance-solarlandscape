@@ -1,4 +1,4 @@
-expression SQLite_PATH = "C:\Users\Admin\OneDrive\Área de Trabalho\solarlandscape test\db\solarlandscape.db" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression SQLite_PATH = "C:\Users\Admin\OneDrive\Documentos\REPOS\Financial-Performance-solarlandscape\db\solarlandscape.db" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	lineageTag: 32ae36bf-fc0e-42ed-b687-8ce59a7ec079
 	queryGroup: ROOT
 
